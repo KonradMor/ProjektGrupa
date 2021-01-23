@@ -1,2 +1,3 @@
-/ProjektGrupa/__init__.py
 /venv/
+/accounts/migrations/
+accounts/__init__.py
