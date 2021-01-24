@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from main.views import TeamsListView, View_to_change
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', View_to_change),
     path('accounts/', include('accounts.urls')),
-    path('user_panel/', include('main.urls')),
+    path('user_panel/', TeamsListView.as_view(), name='user_dashboard'),
+    path('team_panel/<int:pk>', include('main.urls')),
     path('message/', include('message.urls')),
 ]
