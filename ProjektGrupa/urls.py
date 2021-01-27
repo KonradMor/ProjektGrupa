@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from main.views import TeamsListView, View_to_change
+from main.views import TeamsListView, View_to_change, TeamCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +23,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('user_panel/', TeamsListView.as_view(), name='user_dashboard'),
     path('team_panel/<int:pk>', include('main.urls')),
+    path('team_add/', TeamCreateView.as_view(), name='team_add'),
     path('message/', include('message.urls')),
 ]

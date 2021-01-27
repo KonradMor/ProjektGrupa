@@ -8,9 +8,8 @@ from .views import (TeamMembersListView, TaskListView, TaskUpdateView,
 
 urlpatterns = [
     path('', TeamMembersListView.as_view(), name='team_dashboard'),
-    path('team_add', TeamCreateView.as_view(), name='team_add'),
     path('team_delete/', TeamDeleteView.as_view(), name='team_delete'),
-    path('tasks/', TaskListView.as_view(), name='tasks_list'),
+    # path('tasks/', TaskListView.as_view(), name='tasks_list'),
     path('task_end/<int:pk>', TaskUpdateView.as_view(), name='task_end'),
     path('task_add/', TaskCreateView.as_view(), name='task_add'),
     path('task_delete/<int:pk>', TaskDeleteView.as_view(), name='task_delete'),
