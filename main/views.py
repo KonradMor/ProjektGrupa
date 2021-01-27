@@ -16,17 +16,22 @@ class TeamsListView(LoginRequiredMixin, ListView):
     model = Teams
     template_name = 'teams_list.html'
 
+    def get_queryset(self):
+        # for record in TeamMembers.objects.filter(member_name=self.request.user.id):
+        #     return record.member_name
+        # return TeamMembers.objects.filter(member_name=self.request.user.id)
+        filter1 = TeamMembers.objects.filter(member_name=self.request.user.id)
+        return [i.team_name for i in filter1]
 
-    # def get_queryset(self):
-    #     return TeamMembers.objects.filter(member_name=self.request.user)
-    #     return Teams.objects.filter(team_name=self.request.user.member_name)
 
 class TeamMembersListView(ListView):
     model = TeamMembers
     template_name = 'team_members_list.html'
 
     def get_queryset(self):
-        return TeamMembers.objects.filter(member_name=self.request.resolver_match.kwargs['pk'])
+        self.extra_context = {'tasks': Tasks.objects.filter(team_name=self.request.resolver_match.kwargs['pk']),
+                              'manager': Teams.objects.filter(id=self.request.resolver_match.kwargs['pk']).first()}
+        return TeamMembers.objects.filter(team_name=self.request.resolver_match.kwargs['pk'])
 
 
 class TaskListView(ListView):

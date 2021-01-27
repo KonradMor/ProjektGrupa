@@ -14,10 +14,10 @@ class Teams(models.Model):
 
 class TeamMembers(models.Model):
     team_name = models.ForeignKey(Teams, on_delete=models.DO_NOTHING)
-    member_name = models.ManyToManyField(Users)
+    member_name = models.ForeignKey(Users, on_delete=models.DO_NOTHING, default='')
 
     def __str__(self):
-        return str(self.member_name)
+        return str(self.team_name)
 
 
 class Tasks(models.Model):

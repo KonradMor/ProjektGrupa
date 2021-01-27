@@ -2,8 +2,25 @@
 
 {% block content %}
 
+    <p>Manager: {{ manager.manager }}
+        <a href="" class="btn btn-primary">Change</a>
+    </p>
+
     {% for member in object_list %}
-        <a href="">{{ member }}</a>
+        <p><a href="">{{ member.member_name }}</a>
+            <a href="" class="btn btn-primary">Delete</a>
+        </p>
     {% endfor %}
+
+    {% for task in tasks %}
+        <p>{{ task }}
+            <a href="" class="btn btn-primary">End</a>
+            <a href="" class="btn btn-primary">Delete</a>
+        </p>
+
+    {% endfor %}
+
+    <a href="" class="btn btn-primary">Add member</a>
+    <a href="" class="btn btn-primary">Add Task</a>
 
 {% endblock %}
