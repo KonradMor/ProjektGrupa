@@ -19,3 +19,4 @@ urlpatterns = [
     path('member_delete/<int:pk>', TeamMemberDeleteView.as_view(), name='member_delete'),
     path('member_tasks/<int:pk>', MemberTasksListView.as_view(), name='member_tasks')
 ]
+
