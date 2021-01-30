@@ -4,10 +4,11 @@ from .models import Messages
 from accounts.models import Users
 from main.models import TeamMembers
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 
-class MessageListView(ListView):
+class MessageListView(LoginRequiredMixin, ListView):
     model = Messages
     template_name = "message.html"
 
@@ -16,7 +17,7 @@ class MessageListView(ListView):
         return Messages.objects.filter(id_user_from=self.request.user.users)
 
 
-class MessageCreateView(CreateView):
+class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Messages
     template_name = "form.html"
     fields = ['content', 'id_user_to']
@@ -27,7 +28,7 @@ class MessageCreateView(CreateView):
         return super(MessageCreateView, self).form_valid(form)
 
 
-class ContentCreateView(CreateView):
+class ContentCreateView(LoginRequiredMixin, CreateView):
     model = Messages
     template_name = "form.html"
     fields = ['content']
