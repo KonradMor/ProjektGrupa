@@ -19,7 +19,7 @@ from main.views import TeamsListView, View_to_change
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', View_to_change),
+    path('', View_to_change, name = "empty"),
     path('accounts/', include('accounts.urls')),
     path('user_panel/', TeamsListView.as_view(), name='user_dashboard'),
     path('team_panel/<int:pk>', include('main.urls')),
