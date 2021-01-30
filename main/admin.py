@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Teams, TeamMembers, Tasks
 
 # Register your models here.
@@ -6,3 +7,4 @@ from .models import Teams, TeamMembers, Tasks
 admin.site.register(Teams)
 admin.site.register(TeamMembers)
 admin.site.register(Tasks)
+
