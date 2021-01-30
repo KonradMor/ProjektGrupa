@@ -4,11 +4,12 @@ from chat.models import ChatMessages
 # from chat.models import Chats
 # from django.db.models import CharField, Model
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
 
-class ChatMessagesListView(ListView):
+class ChatMessagesListView(LoginRequiredMixin, ListView):
     template_name = "chat.html"
     model = ChatMessages
 
@@ -17,7 +18,7 @@ class ChatMessagesListView(ListView):
     #     return
 
 
-class ChatMessagesCreateView(CreateView):
+class ChatMessagesCreateView(LoginRequiredMixin, CreateView):
     template_name = "form.html"
     model = ChatMessages
     fields = ["message", "member_name", "chat_number"]
