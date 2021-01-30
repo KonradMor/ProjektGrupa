@@ -97,7 +97,9 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     def get_form(self, form_class=None):
         form = super(TaskCreateView, self).get_form(form_class)
         filter1 = TeamMembers.objects.filter(team_name=self.request.resolver_match.kwargs['pk'])
-        form.fields['member_name'].queryset = Users.objects.filter(user__in=[i.member_name.user for i in filter1])
+        filter2 = Teams.objects.filter(id=self.request.resolver_match.kwargs['pk'])
+        filter3 = [i.member_name.user for i in filter1] + [i.manager.user for i in filter2]
+        form.fields['member_name'].queryset = Users.objects.filter(user__in=filter3)
         return form
 
     # def form_valid(self, form):
