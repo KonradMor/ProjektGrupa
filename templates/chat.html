@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
     {% for message in object_list %}
+
         <p>{{ message }}</p>
 
     {% endfor %}
+
+    <a class="btn btn-primary" href="{% url 'chat:new' chat.id %}">Add message</a>
 
 {% endblock %}

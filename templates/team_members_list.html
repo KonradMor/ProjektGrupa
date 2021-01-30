@@ -12,7 +12,7 @@
                 <p>
                     <a href="">{{ member.member_name }}</a>
                     <a href="{% url 'member_delete' member.id %}" class="btn btn-primary">Delete</a>
-                    <a href="" class="btn btn-primary">Change User's Tasks</a>
+                    <a href="{% url 'member_tasks' team.id %}" class="btn btn-primary">Change User's Tasks</a>
                     <a href="" class="btn btn-primary">Send Message</a>
                 </p>
             {% endfor %}
@@ -32,5 +32,5 @@
         <a href="{% url 'task_add' team.id %}" class="btn btn-primary">Add Task</a>
         <a href="{% url 'team_delete' team.id %}" class="btn btn-danger">Team Delete</a>
         <a href="{% url 'member_add' team.id %}" class="btn btn-primary">Add member</a>
-
+        <a href="{% url 'chat:chat' team.id %}" class="btn btn-primary">Chat</a>
 {% endblock %}

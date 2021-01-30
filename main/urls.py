@@ -16,5 +16,5 @@ urlpatterns = [
     path('manager_change/', ManagerChangeView.as_view(), name='manager_change'),
     path('member_add/', TeamMemberCreateView.as_view(), name='member_add'),
     # path('member_delete/', TeamMemberDeleteView.as_view(), name='member_delete'),
-    # path('member_tasks/', MemberTasksListView.as_view(), name='member_tasks') jak to zrobic, zeby korzystac z dwoch pk tj. pk zespolu i pk osoby
+    path('member_tasks/', MemberTasksListView.as_view(), name='member_tasks')
 ]
