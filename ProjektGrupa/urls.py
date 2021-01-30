@@ -21,4 +21,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('user_panel/', include('main.urls')),
     path('message/', include('message.urls')),
+    path('chat/<int:pk>',include('chat.urls'))
 ]
