@@ -10,6 +10,7 @@
         <div class="container">
             <a class="navbar-brand" href="/"><b>ProMan</b></a>
             {% if user.is_authenticated %}
+                <p>Hello {{ user }}!</p>
                 <a class="nav-item active text-right" href="{% url 'accounts:logout' %}">Log Out</a>
                 <a class="nav-item nav-link active" href="{% url 'MessListView' %}">Messages</a>
             {% else %}
@@ -23,7 +24,9 @@
 
     <div class="container">
         <div class="jumbotron">
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock %}
+
         </div>
     </div>
 </body>
