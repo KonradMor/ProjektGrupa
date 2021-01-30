@@ -13,7 +13,7 @@ class Teams(models.Model):
 
 
 class TeamMembers(models.Model):
-    team_name = models.ForeignKey(Teams, on_delete=models.DO_NOTHING)
+    team_name = models.ForeignKey(Teams, on_delete=models.CASCADE)
     member_name = models.ForeignKey(Users, on_delete=models.DO_NOTHING, default='')
 
     def __str__(self):
@@ -22,7 +22,7 @@ class TeamMembers(models.Model):
 
 class Tasks(models.Model):
     task_name = models.CharField(max_length=360)
-    team_name = models.ForeignKey(Teams, on_delete=models.DO_NOTHING)
+    team_name = models.ForeignKey(Teams, on_delete=models.CASCADE)
     member_name = models.ForeignKey(Users, on_delete=models.DO_NOTHING)
     start_date = models.DateField(default=date.today)
     plan_end_date = models.DateField()

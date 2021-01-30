@@ -7,7 +7,7 @@ from accounts.models import Users
 
 class ChatMessages(models.Model):
 
-    chat_number = models.ForeignKey('Chats', on_delete=models.DO_NOTHING)
+    chat_number = models.ForeignKey('Chats', on_delete=models.CASCADE)
     member_name = models.ForeignKey(Users, on_delete=models.DO_NOTHING)
     message = models.CharField(max_length=1000)
     time_sent = models.DateTimeField(auto_now_add=True)
@@ -17,7 +17,7 @@ class ChatMessages(models.Model):
 
       
 class Chats(models.Model):
-    team_name = models.ForeignKey(Teams, on_delete=models.DO_NOTHING)
+    team_name = models.ForeignKey(Teams, on_delete=models.CASCADE)
     # message_text = models.ForeignKey(ChatMessages, on_delete=models.DO_NOTHING)
 
     def __str__(self):
