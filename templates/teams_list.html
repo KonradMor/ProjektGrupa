@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="row align-items-start">
+        {% for team in object_list %}
+            <div class="col">
+                <a href="{% url 'team_dashboard' team.id %}">{{ team }}</a>
+            </div>
+        {% endfor %}
 
-    {% for team in object_list %}
-        <a href="{% url 'team_dashboard' team.id %}">{{ team }}</a>
-    {% endfor %}
-
+        <div class="col">
+            <a href="{% url 'team_add' %}" class="btn btn-primary">Add team</a>
+        </div>
+    </div>
 {% endblock %}
