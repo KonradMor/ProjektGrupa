@@ -24,4 +24,5 @@ urlpatterns = [
     path('user_panel/', TeamsListView.as_view(), name='user_dashboard'),
     path('team_panel/<int:pk>', include('main.urls')),
     path('message/', include('message.urls')),
+    path('chat/<int:pk>',include('chat.urls'))
 ]
