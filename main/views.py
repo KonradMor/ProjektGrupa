@@ -20,7 +20,9 @@ class TeamsListView(LoginRequiredMixin, ListView):
         # for record in TeamMembers.objects.filter(member_name=self.request.user.id):
         #     return record.member_name
         # return TeamMembers.objects.filter(member_name=self.request.user.id)
+        # self.extra_context = {'members': TeamMembers.objects.filter(team_name=)}
         filter1 = TeamMembers.objects.filter(member_name=self.request.user.id)
+        # filter2 = TeamMembers.objects.filter(team_name__in=filter1)
         return [i.team_name for i in filter1]
 
 
@@ -30,7 +32,7 @@ class TeamMembersListView(ListView):
 
     def get_queryset(self):
         self.extra_context = {'tasks': Tasks.objects.filter(team_name=self.request.resolver_match.kwargs['pk']),
-                              'manager': Teams.objects.filter(id=self.request.resolver_match.kwargs['pk']).first()}
+                              'team': Teams.objects.filter(id=self.request.resolver_match.kwargs['pk']).first()}
         return TeamMembers.objects.filter(team_name=self.request.resolver_match.kwargs['pk'])
 
 
@@ -55,20 +57,29 @@ class TaskUpdateView(UpdateView):
     model = Tasks
     template_name = 'form.html'
     fields = ['actual_end_date']
-    success_url = reverse_lazy('team_dashboard')
+    success_url = reverse_lazy('user_dashboard')
 
 
 class TaskCreateView(CreateView):
     model = Tasks
     template_name = 'form.html'
     fields = ['task_name', 'member_name', 'plan_end_date']
+    success_url = reverse_lazy('user_dashboard')
+
+    def form_valid(self, form):
+        form.instance.team_name = Teams.objects.get(pk=self.kwargs['pk'])
+        return super(TaskCreateView, self).form_valid(form)
+
+    # def form_valid(self, form):
+    #     form.instance.user = self.request.user
+    #     return super(TodoView, self).form_valid(form)
 
 
 class ManagerChangeView(UpdateView):
     model = Teams
     template_name = 'form.html'
     fields = ['manager']
-    success_url = reverse_lazy('team_dashboard')
+    success_url = reverse_lazy('user_dashboard')
 
 
 class TeamCreateView(CreateView):
@@ -82,20 +93,26 @@ class TeamMemberCreateView(CreateView):
     model = TeamMembers
     template_name = 'form.html'
     fields = ['member_name']
-    success_url = reverse_lazy('team_dashboard')
+    success_url = reverse_lazy('user_dashboard')
+
+    def form_valid(self, form):
+        form.instance.team_name = Teams.objects.get(pk=self.kwargs['pk'])
+        return super(TeamMemberCreateView, self).form_valid(form)
 
 
 class TeamMemberDeleteView(DeleteView):
     model = TeamMembers
     template_name = 'delete.html'
-    success_url = reverse_lazy('team_dashboard')
+    success_url = reverse_lazy('user_dashboard')
 
 
 class TeamDeleteView(DeleteView):
-    pass
+    Model = Teams
+    template_name = 'delete.html'
+    success_url = reverse_lazy('user_dashboard')
 
 
 class TaskDeleteView(DeleteView):
     model = Tasks
     template_name = 'delete.html'
-    success_url = reverse_lazy('team_dashboard')
+    success_url = reverse_lazy('user_dashboard')

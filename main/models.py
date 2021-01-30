@@ -9,7 +9,7 @@ class Teams(models.Model):
     manager = models.ForeignKey(Users, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return self.team_name
+        return self.team_name.capitalize()
 
 
 class TeamMembers(models.Model):
@@ -29,4 +29,4 @@ class Tasks(models.Model):
     actual_end_date = models.DateField(null=True)
 
     def __str__(self):
-        return self.task_name
+        return self.task_name.capitalize()

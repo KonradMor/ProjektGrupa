@@ -1,27 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <h1 align="center"><b>{{ team }}</b></h1>
+    <div class="row align-items-start">
+        <div class="col">
+            <p>Manager: {{ team.manager }}
+                <a href="{% url 'manager_change' team.id %}" class="btn btn-primary">Change</a>
+            </p>
 
-    <p>Manager: {{ manager.manager }}
-        <a href="" class="btn btn-primary">Change</a>
-    </p>
+            {% for member in object_list %}
+                <p>
+                    <a href="">{{ member.member_name }}</a>
+                    <a href="{% url 'member_delete' member.id %}" class="btn btn-primary">Delete</a>
+                    <a href="" class="btn btn-primary">Change User's Tasks</a>
+                    <a href="" class="btn btn-primary">Send Message</a>
+                </p>
+            {% endfor %}
 
-    {% for member in object_list %}
-        <p><a href="">{{ member.member_name }}</a>
-            <a href="" class="btn btn-primary">Delete</a>
-        </p>
-    {% endfor %}
+        </div>
 
-    {% for task in tasks %}
-        <p>{{ task }}
-            <a href="" class="btn btn-primary">End</a>
-            <a href="" class="btn btn-primary">Delete</a>
-        </p>
+        <div class="col">
+            {% for task in tasks %}
+                <p>{{ task }}
+                    <a href="{% url 'task_end' task.id %}" class="btn btn-primary">End</a>
+                    <a href="{% url 'task_delete' task.id %}" class="btn btn-primary">Delete</a>
+                </p>
 
-    {% endfor %}
-
-    <a href="" class="btn btn-primary">Add member</a>
-    <a href="" class="btn btn-primary">Add Task</a>
-    <a href="" class="btn btn-danger">Team Delete</a>
+            {% endfor %}
+        </div>
+    </div>
+        <a href="{% url 'task_add' team.id %}" class="btn btn-primary">Add Task</a>
+        <a href="{% url 'team_delete' team.id %}" class="btn btn-danger">Team Delete</a>
+        <a href="{% url 'member_add' team.id %}" class="btn btn-primary">Add member</a>
 
 {% endblock %}

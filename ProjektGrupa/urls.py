@@ -15,14 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from main.views import TeamsListView, View_to_change, TeamCreateView
-
+from main.views import (TeamsListView, TeamCreateView, TaskUpdateView,
+                        TeamMemberCreateView, TeamMemberDeleteView,
+                        TaskDeleteView,
+                        )
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', View_to_change),
     path('accounts/', include('accounts.urls')),
-    path('user_panel/', TeamsListView.as_view(), name='user_dashboard'),
-    path('team_panel/<int:pk>', include('main.urls')),
+    path('', TeamsListView.as_view(), name='user_dashboard'),
+    path('team_panel/<int:pk>/', include('main.urls')),
     path('team_add/', TeamCreateView.as_view(), name='team_add'),
     path('message/', include('message.urls')),
+    path('member_delete/<int:pk>', TeamMemberDeleteView.as_view(), name='member_delete'),
+    path('task_delete/<int:pk>', TaskDeleteView.as_view(), name='task_delete'),
+    path('task_end/<int:pk>', TaskUpdateView.as_view(), name='task_end'),
+    # path('task_end/<int:pk>', TaskUpdateView.as_view(), name='task_end')
 ]
