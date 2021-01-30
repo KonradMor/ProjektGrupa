@@ -50,7 +50,8 @@ class MemberTasksListView(ListView):
     template_name = 'tasks_list.html'
 
     def get_queryset(self):
-        return Tasks.objects.filter(member_name=self.request.resolver_match.kwargs['pk'])
+
+        return Tasks.objects.filter(team_name=self.request.resolver_match.kwargs['pk'])
 
 
 class TaskUpdateView(UpdateView):

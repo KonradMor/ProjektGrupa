@@ -27,7 +27,7 @@ urlpatterns = [
     path('team_add/', TeamCreateView.as_view(), name='team_add'),
     path('message/', include('message.urls')),
 
-    path('chat/<int:pk>',include('chat.urls'))
+    path('chat/<int:pk>/', include('chat.urls')),
 
     path('member_delete/<int:pk>', TeamMemberDeleteView.as_view(), name='member_delete'),
     path('task_delete/<int:pk>', TaskDeleteView.as_view(), name='task_delete'),
