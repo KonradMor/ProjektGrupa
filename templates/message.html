@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-    {% for message in object_list %}
-    <p>{{ message }}</p>
+    {% for message_from in object_list %}
+        <p>{{ message_from }}</p>
     {% endfor %}
-    <a href="create/"><button type="button" class="btn btn-secondary">create message</button></a>
+
+    {% for message_to in to %}
+        <p>{{ message_to }}</p>
+    {% endfor %}
+
+    <a href="{% url 'MessCreateView' %}" class="btn btn-primary">New Message</a>
 
 {% endblock %}

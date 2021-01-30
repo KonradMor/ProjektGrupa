@@ -29,4 +29,4 @@ class ChatMessagesCreateView(CreateView):
         return super(ChatMessagesCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("chat:chat", kwargs = {'pk': self.kwargs['pk']})
+        return reverse_lazy("chat:chat", kwargs={'pk': self.kwargs['pk']})
