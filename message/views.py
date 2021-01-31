@@ -13,8 +13,8 @@ class MessageListView(LoginRequiredMixin, ListView):
     template_name = "message.html"
 
     def get_queryset(self):
-        self.extra_context = {'to': Messages.objects.filter(id_user_to=self.request.user.users)}
-        return Messages.objects.filter(id_user_from=self.request.user.users)
+        self.extra_context = {'to': Messages.objects.filter(id_user_from=self.request.user.users)}
+        return Messages.objects.filter(id_user_to=self.request.user.users)
 
 
 class MessageCreateView(LoginRequiredMixin, CreateView):

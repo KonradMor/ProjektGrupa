@@ -4,7 +4,10 @@
 
     {% for task in object_list %}
 
-        <a href="">{{ task }}</a>
+        <p><a href="">{{ task }}</a>
+        <a href="{% url 'task_end' task.id %}" class="btn btn-primary">End</a>
+        <a href="{% url 'task_delete' task.id %}" class="btn btn-primary">Delete</a>
+        </p>
 
     {% endfor %}
 

@@ -13,8 +13,9 @@ class ChatMessagesListView(ListView):
     model = ChatMessages
 
     def get_queryset(self):
-        self.extra_context = {'chat': Chats.objects.get(pk=self.kwargs['pk'])}
-        return ChatMessages.objects.filter(chat_number=self.request.resolver_match.kwargs['pk'])
+        filter1 = Chats.objects.get(team_name=self.kwargs['pk'])
+        self.extra_context = {'chat': Chats.objects.get(team_name=self.kwargs['pk'])}
+        return ChatMessages.objects.filter(chat_number=filter1)
 
 
 class ChatMessagesCreateView(CreateView):
@@ -24,7 +25,7 @@ class ChatMessagesCreateView(CreateView):
     # success_url = reverse_lazy("user_dashboard")
 
     def form_valid(self, form):
-        form.instance.chat_number = Chats.objects.get(pk=self.kwargs['pk'])
+        form.instance.chat_number = Chats.objects.get(team_name=self.kwargs['pk'])
         form.instance.member_name = self.request.user.users
         return super(ChatMessagesCreateView, self).form_valid(form)
 

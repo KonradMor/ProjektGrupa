@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'chat',
     'main',
     'message',
+    'extra_views',
 ]
 
 MIDDLEWARE = [

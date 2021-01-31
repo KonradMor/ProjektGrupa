@@ -6,6 +6,6 @@
 
     {% endfor %}
 
-    <a class="btn btn-primary" href="{% url 'chat:new' chat.id %}">Add message</a>
+    <a class="btn btn-primary" href="{% url 'chat:new' chat.team_name.id %}">Add message</a>
 
 {% endblock %}

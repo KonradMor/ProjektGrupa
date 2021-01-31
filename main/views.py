@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
+from extra_views import CreateWithInlinesView, InlineFormSetFactory
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Teams, TeamMembers, Tasks
+from chat.models import Chats
 from accounts.models import Users
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 
@@ -117,17 +120,11 @@ class ManagerChangeView(LoginRequiredMixin, UpdateView):
         return reverse_lazy("team_dashboard", kwargs={'pk': self.kwargs['pk']})
 
 
-class TeamCreateView(LoginRequiredMixin, CreateView):
-    model = Teams
-    template_name = 'form.html'
-    fields = '__all__'
-    success_url = reverse_lazy('user_dashboard')
-
-
 class TeamMemberCreateView(LoginRequiredMixin, CreateView):
     model = TeamMembers
     template_name = 'form.html'
     fields = ['member_name']
+
     # success_url = reverse_lazy('user_dashboard')
 
     def form_valid(self, form):
@@ -136,6 +133,26 @@ class TeamMemberCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy("team_dashboard", kwargs={'pk': self.kwargs['pk']})
+
+
+class ChatCreateView(LoginRequiredMixin):
+    model = Chats
+    fields = '__all__'
+    # exclude = ('team_name',)
+
+
+class TeamCreateView(LoginRequiredMixin, CreateView):
+    model = Teams
+    template_name = 'team_add_form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('user_dashboard')
+
+    def form_valid(self, form):
+        self.object = form.save()
+        chat = Chats()
+        chat.team_name = self.object
+        chat.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class TeamMemberDeleteView(LoginRequiredMixin, DeleteView):
