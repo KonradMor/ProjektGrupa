@@ -1,14 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
 
-    {% for message_from in object_list %}
-        <p>{{ message_from }}</p>
-    {% endfor %}
+    <div class="row align-items-start">
+        <div class="col">
+            <h6>INBOX</h6>
+            {% for message_from in object_list %}
+                <p>From: {{ message_from.id_user_from }} message: {{ message_from }}</p>
+            {% endfor %}
 
-    {% for message_to in to %}
-        <p>{{ message_to }}</p>
-    {% endfor %}
+        </div>
 
+        <div class="col">
+            <h6>OUTBOX</h6>
+            {% for message_to in to %}
+                <p>To: {{ message_to.id_user_to }} message: {{ message_to }}</p>
+            {% endfor %}
+
+        </div>
+    </div>
+    <br>
     <a href="{% url 'MessCreateView' %}" class="btn btn-primary">New Message</a>
 
 {% endblock %}
