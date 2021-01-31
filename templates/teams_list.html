@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{#    <p>{{ user.id }}</p>#}
+{#    {% for member in members %}#}
+{#        <p>{{ member.team_name }}: {{ member.member_name }}, {{ member.member_name.id }}</p>#}
+{#    {% endfor %}#}
+{##}
+{#    {% for user in all_users %}#}
+{#        <p>{{ user }}, {{ user.id }}</p>#}
+{#    {% endfor %}#}
+
+
+
+
+
     <div class="row align-items-start">
         {% for team in object_list %}
             <div class="col">
@@ -8,8 +21,11 @@
             </div>
         {% endfor %}
 
+    {% if user.is_superuser %}
         <div class="col">
             <a href="{% url 'team_add' %}" class="btn btn-primary">Add team</a>
         </div>
+    {% else %}
+    {% endif %}
     </div>
 {% endblock %}

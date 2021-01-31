@@ -5,15 +5,21 @@
     <div class="row align-items-start">
         <div class="col">
             <p>Manager: {{ team.manager }}
+                {% if user.is_superuser %}
                 <a href="{% url 'manager_change' team.id %}" class="btn btn-primary">Change</a>
+                {% endif %}
             </p>
-
+{#            <p>{{ user_id }}, {{ team.manager.id }}</p>#}
             {% for member in object_list %}
                 <p>
                     <a href="">{{ member.member_name }}</a>
-                    <a href="{% url 'member_delete' member.id %}" class="btn btn-primary">Delete</a>
-                    <a href="{% url 'member_tasks' team.id %}" class="btn btn-primary">Change User's Tasks</a>
-                    <a href="{% url 'message_to' member.id %}" class="btn btn-primary">Send Message</a>
+                    {% if user_id == team.manager.id or user.is_superuser %}
+                        <a href="{% url 'member_delete' member.id %}" class="btn btn-primary">Delete</a>
+                        <a href="{% url 'member_tasks' team.id %}" class="btn btn-primary">Change User's Tasks</a>
+                        <a href="{% url 'message_to' member.id %}" class="btn btn-primary">Send Message</a>
+                    {% else %}
+                        <a href="{% url 'message_to' member.id %}" class="btn btn-primary">Send Message</a>
+                    {% endif %}
                 </p>
             {% endfor %}
 
@@ -22,15 +28,25 @@
         <div class="col">
             {% for task in tasks %}
                 <p>{{ task }}
-                    <a href="{% url 'task_end' task.id %}" class="btn btn-primary">End</a>
-                    <a href="{% url 'task_delete' task.id %}" class="btn btn-primary">Delete</a>
+                    {% if user_id == team.manager.id or user.is_superuser %}
+                        <a href="{% url 'task_end' task.id %}" class="btn btn-primary">End</a>
+                        <a href="{% url 'task_delete' task.id %}" class="btn btn-primary">Delete</a>
+                    {% endif %}
                 </p>
 
             {% endfor %}
         </div>
     </div>
-        <a href="{% url 'task_add' team.id %}" class="btn btn-primary">Add Task</a>
-        <a href="{% url 'team_delete' team.id %}" class="btn btn-danger">Team Delete</a>
-        <a href="{% url 'member_add' team.id %}" class="btn btn-primary">Add member</a>
-        <a href="{% url 'chat:chat' team.id %}" class="btn btn-primary">Chat</a>
+        {% if user.is_superuser %}
+            <a href="{% url 'task_add' team.id %}" class="btn btn-primary">Add Task</a>
+            <a href="{% url 'team_delete' team.id %}" class="btn btn-danger">Team Delete</a>
+            <a href="{% url 'member_add' team.id %}" class="btn btn-primary">Add member</a>
+            <a href="{% url 'chat:chat' team.id %}" class="btn btn-primary">Chat</a>
+        {% elif user_id == team.manager.id %}
+            <a href="{% url 'task_add' team.id %}" class="btn btn-primary">Add Task</a>
+            <a href="{% url 'member_add' team.id %}" class="btn btn-primary">Add member</a>
+        {% else %}
+            <a href="{% url 'chat:chat' team.id %}" class="btn btn-primary">Chat</a>
+        {% endif %}
+
 {% endblock %}

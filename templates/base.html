@@ -10,13 +10,13 @@
         <div class="container">
             <a class="navbar-brand" href="/"><b>ProMan</b></a>
             {% if user.is_authenticated %}
-                <p>Hello {{ user }}!</p>
+                <a style="color: white"><b>Hello {{ user }}!</b></a>
                 <a class="nav-item active text-right" href="{% url 'accounts:logout' %}">Log Out</a>
                 <a class="nav-item nav-link active" href="{% url 'MessListView' %}">Messages</a>
             {% else %}
                 <a class="nav-item active text-right" href="{% url 'accounts:signup' %}">Register</a>
                <a class="nav-item active text-right" href="{% url 'accounts:login' %}">Log In</a>
-                <a class="dropdown-item text-right" href="{% url 'accounts:change-password' %}">Change password</a>
+                <a class="nav-item active text-right" href="{% url 'accounts:change-password' %}">Change password</a>
             {% endif %}
         </div>
 
